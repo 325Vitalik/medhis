@@ -28,10 +28,17 @@ const createPatient = async (patient) => {
 	await userDb.create(id, patient);
 };
 
+const getUserById = async (userId) => {
+	const userDb = await new UserDb().initialize();
+
+	return await userDb.get().byId(userId);
+};
+
 const userService = {
 	getPatients,
 	getPatientsCount,
 	createPatient,
+	getUserById,
 };
 
 module.exports = userService;

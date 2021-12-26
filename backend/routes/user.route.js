@@ -9,6 +9,10 @@ const encryptionService = require("../services/encriptionService");
 
 const userRouter = new Router();
 
+userRouter.use(authMiddleware(["admin", "doctor"])).get("/user/:userId", async (ctx) => {
+	ctx.body = await userService.getUserById(ctx.params.userId);
+});
+
 userRouter.use(authMiddleware(["admin", "doctor"])).get("/patients", async (ctx) => {
 	const take = Number(ctx.query.take);
 	const skip = Number(ctx.query.skip);
@@ -19,21 +23,6 @@ userRouter.use(authMiddleware(["admin", "doctor"])).get("/patients", async (ctx)
 userRouter.use(authMiddleware(["admin", "doctor"])).get("/patients/count", async (ctx) => {
 	ctx.body = await userService.getPatientsCount();
 });
-
-const saveFile = (file, path) => {
-	return new Promise((resolve, reject) => {
-		let render = fs.createReadStream(file);
-		// Create a write stream
-		let upStream = fs.createWriteStream(path);
-		render.pipe(upStream);
-		upStream.on("finish", () => {
-			resolve(path);
-		});
-		upStream.on("error", (err) => {
-			reject(err);
-		});
-	});
-};
 
 userRouter.use(authMiddleware(["admin", "doctor"])).post("/patient", async (ctx) => {
 	const { fields, files } = await parseRequestWithFile(ctx.req);

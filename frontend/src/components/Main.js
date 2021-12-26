@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Grid, Segment } from "semantic-ui-react";
 import { NavigationBar } from "./navigation/NavigationBar";
 import { PatientList } from "./patients/PatientList";
+import { PatientPage } from "./patients/PatientPage";
 
 export const Main = () => {
 	return (
@@ -20,6 +21,7 @@ export const Main = () => {
 							<Route index element={<>USER PAGE 2</>} />
 						</Route>
 						<Route path="patients" element={<PatientList />} />
+						<Route path="patient/:id" element={<PatientPage />} />
 					</Routes>
 				</Segment>
 			</Grid.Column>

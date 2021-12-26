@@ -27,30 +27,36 @@ class UserDb {
 
 	get() {
 		const byEmail = (email) => {
-			const query = "SELECT * FROM medhis.med.users WHERE email = $email LIMIT 1";
+			const query =
+				"SELECT META().id, roleName, firstName, secondName, phone, email, passwordHash, imageUrl, address FROM medhis.med.users WHERE email = $email LIMIT 1";
 			const options = { parameters: { email } };
 
-			return requestUtils.getResponseRows(this.cluster.query(query, options), "users", true);
+			return requestUtils.getResponseRows(this.cluster.query(query, options), true);
 		};
 
 		const byRole = (role, take, skip) => {
 			const takeQuery = !take ? "" : ` LIMIT $take`;
 			const skipQuery = !skip ? "" : ` OFFSET $skip`;
-			const query = "SELECT * FROM medhis.med.users WHERE roleName = $role" + takeQuery + skipQuery;
+			const query =
+				"SELECT META().id, roleName, firstName, secondName, phone, email, passwordHash, imageUrl, address FROM medhis.med.users WHERE roleName = $role" +
+				takeQuery +
+				skipQuery;
 			const options = { parameters: { role, take, skip } };
 
-			return requestUtils.getResponseRows(this.cluster.query(query, options), "users");
+			return requestUtils.getResponseRows(this.cluster.query(query, options));
 		};
 
-		return { byEmail, byRole };
+		const byId = (id) => this.users.get(id).then(item => item.content);
+
+		return { byEmail, byRole, byId };
 	}
 
 	count() {
-		const byRole = (role) => {
+		const byRole = async (role) => {
 			const query = "SELECT COUNT(*) AS total FROM medhis.med.users WHERE roleName = $role";
 			const options = { parameters: { role } };
 
-			return requestUtils.getResponseRows(this.cluster.query(query, options), "total", true);
+			return (await requestUtils.getResponseRows(this.cluster.query(query, options), true)).total;
 		};
 
 		return { byRole };

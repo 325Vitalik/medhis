@@ -55,6 +55,7 @@ export const PatientList = () => {
 					<List relaxed="very" celled size="massive">
 						{patients.map((patient) => (
 							<PatientItem
+								id={patient.id}
 								firstName={patient.firstName}
 								secondName={patient.secondName}
 								imageUrl={patient.imageUrl}

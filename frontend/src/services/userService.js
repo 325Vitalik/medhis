@@ -29,8 +29,19 @@ const addPatient = async (patientData, image) => {
 	return response.status === 201;
 };
 
+const getUserById = async (id) => {
+	const response = await getApi(`/user/${id}`);
+
+	if (response.status !== 200) {
+		return null;
+	}
+
+	return await response.json();
+};
+
 export const userService = {
 	getPatients,
 	getTotalPatients,
 	addPatient,
+	getUserById
 };

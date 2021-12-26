@@ -1,12 +1,11 @@
-const getResponseRows = async (responsePromise, objectName, isFirstRow = false) => {
+const getResponseRows = async (responsePromise, isFirstRow = false) => {
 	const response = await responsePromise;
 
 	if (isFirstRow) {
-		const firstItem = response.rows[0] || {};
-		return firstItem[objectName];
+		return response.rows[0]
 	}
 
-	return response.rows.map((item) => item[objectName]);
+	return response.rows;
 };
 
 const requestUtils = {
