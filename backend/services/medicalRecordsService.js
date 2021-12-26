@@ -11,9 +11,15 @@ const getMedicalRecordsOfPatientCount = async (patientId) => {
 	return await medicalRecordsDb.count().byPatientId(patientId);
 };
 
+const getMedicalRecordById = async (medicalRecordId) => {
+	const medicalRecordsDb = await new MedicalRecordsDb().initialize();
+	return await medicalRecordsDb.get().byId(medicalRecordId);
+} 
+
 const medicalRecordsService = {
 	getMedicalRecordsOfPatient,
 	getMedicalRecordsOfPatientCount,
+	getMedicalRecordById
 };
 
 module.exports = medicalRecordsService;

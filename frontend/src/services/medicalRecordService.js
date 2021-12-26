@@ -20,7 +20,18 @@ const getTotalMedicalRecordsByPatient = async (patientId) => {
 	return (await response.json()).total;
 };
 
+const getMedicalRecordById = async (recordId) => {
+	const response = await getApi(`/medicalrecord/${recordId}`);
+
+	if (response.status !== 200) {
+		return [];
+	}
+
+	return await response.json();
+};
+
 export const medicalRecordService = {
 	getMedicalRecordsByPatient,
 	getTotalMedicalRecordsByPatient,
+	getMedicalRecordById
 };

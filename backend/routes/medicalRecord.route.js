@@ -4,6 +4,11 @@ const medicalRecordsService = require("../services/medicalRecordsService");
 
 const medicalRecordRouter = new Router();
 
+medicalRecordRouter.use(authMiddleware(["admin", "doctor"])).get("/medicalrecord/:medicalRecordId", async (ctx) => {
+	ctx.body = await medicalRecordsService.getMedicalRecordById(ctx.params.medicalRecordId);
+});
+
+
 medicalRecordRouter.use(authMiddleware(["admin", "doctor"])).get("/medicalrecord", async (ctx) => {
 	const take = Number(ctx.query.take);
 	const skip = Number(ctx.query.skip);
@@ -17,6 +22,5 @@ medicalRecordRouter.use(authMiddleware(["admin", "doctor"])).get("/medicalrecord
 
 	ctx.body = await medicalRecordsService.getMedicalRecordsOfPatientCount(patientId);
 });
-
 
 module.exports = medicalRecordRouter;

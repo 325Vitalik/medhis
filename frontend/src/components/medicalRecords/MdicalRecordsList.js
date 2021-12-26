@@ -40,6 +40,7 @@ export const MedicalRecordsList = ({ patientId }) => {
 
 	return (
 		<Segment loading={isLoading}>
+			<Header size="large">Медична історія</Header>
 			{isLoading && (
 				<Message icon>
 					<Message.Content>

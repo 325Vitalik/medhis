@@ -102,7 +102,9 @@ class MedicalRecordsDb {
 			return requestUtils.getResponseRows(this.cluster.query(query, options));
 		};
 
-		return { byPatientId };
+		const byId = (medicalRecordId) => this.medicalRecords.get(medicalRecordId).then((item) => item.content);
+
+		return { byPatientId, byId };
 	}
 
 	count() {

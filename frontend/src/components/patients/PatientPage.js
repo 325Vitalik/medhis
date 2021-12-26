@@ -30,8 +30,8 @@ export const PatientPage = () => {
 		}
 
 		let streetPath = patient.address?.street;
-		streetPath += patient.address?.buildingNumber ? ` буд. ${patient.address?.buildingNumber}` : ``;
-		streetPath += patient.address?.flatNumber ? ` кв. ${patient.address?.flatNumber}` : ``;
+		streetPath += patient.address?.buildingNumber ? `, буд. ${patient.address?.buildingNumber}` : ``;
+		streetPath += patient.address?.flatNumber ? `, кв. ${patient.address?.flatNumber}` : ``;
 
 		return streetPath;
 	};

@@ -4,7 +4,7 @@ const couchbase = require("couchbase");
 const medicalRecordsList = [
 	{
 		id: "e901eec8-b273-4b91-a5af-b11fa0573c63",
-		date: "2011-06-14T04:12:36.123Z",
+		date: "2011-06-14T04:12:36.12Z",
 		diagnoses: ["Варикоз", "Гастрит"],
 		analyzes: [
 			{
@@ -21,7 +21,7 @@ const medicalRecordsList = [
 	},
 	{
 		id: "3ccc89f6-5980-477a-a71b-873e06970c4f",
-		date: "2016-09-07T10:01:022Z",
+		date: "2016-09-07T10:01:02Z",
 		diagnoses: ["Сепсис"],
 		analyzes: [
 			{
@@ -38,7 +38,7 @@ const medicalRecordsList = [
 	},
 	{
 		id: "40708d89-4874-424e-a3cf-4947302fd0f4",
-		date: "2020-11-10T05:49:131Z",
+		date: "2020-11-10T05:49:13Z",
 		diagnoses: ["Аденомиоз", "Гастрит"],
 		analyzes: [
 			{
@@ -55,7 +55,7 @@ const medicalRecordsList = [
 	},
 	{
 		id: "303ac6c2-b2aa-499d-ad15-20b20abb79fe",
-		date: "2016-02-09T11:11:5656Z",
+		date: "2016-02-09T11:11:56Z",
 		diagnoses: ["Дерматит", "Дефіцит магнію "],
 		analyzes: [
 			{
