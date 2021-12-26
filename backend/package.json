@@ -28,14 +28,10 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bearer-token": "^2.0.2",
-    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-logger": "^3.2.1",
-    "koa-multer": "^1.0.2",
     "koa-router": "^10.1.1",
-    "koa2-formidable": "^1.0.3",
     "multiparty": "^4.2.2",
-    "node-fetch": "^3.1.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
