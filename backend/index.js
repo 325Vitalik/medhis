@@ -6,12 +6,18 @@ const bodyParser = require("koa-bodyparser");
 const jwt = require("./middlewares/jwt.middleware");
 const authRouter = require("./routes/auth.route");
 const errorHandler = require("./middlewares/errorHandler.middleware");
+const cors = require("@koa/cors");
 
 const PORT = process.env.PORT || 8000;
 
 const app = new Koa();
 
-app.use(logger())
+app.use(
+	cors({
+		origin: "*",
+	})
+)
+	.use(logger())
 	.use(bodyParser())
 	// .use(jwt)
 	.use(errorHandler)
