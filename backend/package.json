@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "seed": "node ./db/seeds/users_seed.js",
+    "seed": "node ./db/seeds/users_seed.js && node ./db/seeds/medical_records_seed.js",
     "migrate": "node ./db/migrations/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

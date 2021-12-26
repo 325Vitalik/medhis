@@ -19,6 +19,7 @@ const initializeDbInstance = async () => {
 	);
 	await cluster.query("CREATE INDEX idx_user_email ON medhis.med.users(email);");
 	await cluster.query("CREATE INDEX adv_roleName ON `default`:`medhis`.`med`.`users`(`roleName`);");
+	await cluster.query("CREATE INDEX adv_patientId ON `default`:`medhis`.`med`.`medicalRecords`(`patientId`);");
 };
 
 module.exports = {

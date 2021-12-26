@@ -46,7 +46,7 @@ class UserDb {
 			return requestUtils.getResponseRows(this.cluster.query(query, options));
 		};
 
-		const byId = (id) => this.users.get(id).then(item => item.content);
+		const byId = (id) => this.users.get(id).then((item) => item.content);
 
 		return { byEmail, byRole, byId };
 	}
@@ -56,7 +56,7 @@ class UserDb {
 			const query = "SELECT COUNT(*) AS total FROM medhis.med.users WHERE roleName = $role";
 			const options = { parameters: { role } };
 
-			return (await requestUtils.getResponseRows(this.cluster.query(query, options), true)).total;
+			return requestUtils.getResponseRows(this.cluster.query(query, options), true);
 		};
 
 		return { byRole };
@@ -67,6 +67,57 @@ class UserDb {
 	}
 }
 
+class MedicalRecordsDb {
+	async initialize() {
+		const { medicalRecords, cluster } = await initializeDbInstance();
+
+		this.medicalRecords = medicalRecords;
+		this.cluster = cluster;
+
+		return this;
+	}
+
+	get() {
+		const byPatientId = (patientId, take, skip) => {
+			const takeQuery = !take ? "" : ` LIMIT $take`;
+			const skipQuery = !skip ? "" : ` OFFSET $skip`;
+
+			const query =
+				`SELECT META().id, 
+				date,
+				diagnoses,
+				analyzes,
+				medicines,
+				doctorId,
+				patientId,
+				title,
+				body
+				FROM medhis.med.medicalRecords
+				WHERE patientId = $patientId
+				ORDER BY date DESC` +
+				takeQuery +
+				skipQuery;
+			const options = { parameters: { patientId, take, skip } };
+
+			return requestUtils.getResponseRows(this.cluster.query(query, options));
+		};
+
+		return { byPatientId };
+	}
+
+	count() {
+		const byPatientId = (patientId) => {
+			const query = `SELECT COUNT(*) AS total FROM medhis.med.medicalRecords WHERE patientId = $patientId`;
+			const options = { parameters: { patientId } };
+
+			return requestUtils.getResponseRows(this.cluster.query(query, options), true);
+		};
+
+		return { byPatientId };
+	}
+}
+
 module.exports = {
 	UserDb,
+	MedicalRecordsDb,
 };

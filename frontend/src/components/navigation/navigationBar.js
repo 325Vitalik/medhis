@@ -25,10 +25,7 @@ export const NavigationBar = () => {
 			<Menu.Item name="patients" active={currentRoute === "patients"} onClick={handleItemClick}>
 				Пацієнти
 			</Menu.Item>
-			<Menu.Item name="pics" active={currentRoute === "pics"} onClick={handleItemClick} />
-			<Menu.Item name="companies" active={currentRoute === "companies"} onClick={handleItemClick} />
-			<Menu.Item name="links" active={currentRoute === "links"} onClick={handleItemClick} />
-			<Menu.Item onClick={logOut}>Log out</Menu.Item>
+			<Menu.Item onClick={logOut}>Вийти</Menu.Item>
 		</Menu>
 	);
 };

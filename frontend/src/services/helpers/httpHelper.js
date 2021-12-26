@@ -10,7 +10,7 @@ export const postApi = async (route, data = {}, file) => {
 	return await fetch(`${config.API_URL}${route}`, {
 		method: "POST",
 		mode: "cors",
-		cache: "no-cache",
+		cache: "default",
 		body: getBody(data, file),
 		headers,
 	});
@@ -44,7 +44,7 @@ export const getApi = async (route, params = {}) => {
 	return await fetch(url, {
 		method: "GET",
 		mode: "cors",
-		cache: "no-cache",
+		cache: "force-cache",
 		headers,
 	});
 };

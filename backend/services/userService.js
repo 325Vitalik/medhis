@@ -16,9 +16,7 @@ const mapUser = (user) => {
 
 const getPatientsCount = async () => {
 	const userDb = await new UserDb().initialize();
-	const total = await userDb.count().byRole("patient");
-
-	return { total };
+	return await userDb.count().byRole("patient");
 };
 
 const createPatient = async (patient) => {
