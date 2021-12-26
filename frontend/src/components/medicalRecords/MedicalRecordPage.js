@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Divider, Grid, Header, Image, Label, List, Message, Segment } from "semantic-ui-react";
+import { Divider, Header, Label, Message, Segment } from "semantic-ui-react";
 import { medicalRecordService } from "../../services/medicalRecordService";
-import { userService } from "../../services/userService";
-import { MedicalRecordsList } from "../medicalRecords/MdicalRecordsList";
 
 export const MedicalRecordPage = () => {
 	const [medicalRecord, setMedicalRecord] = useState({});
@@ -70,7 +68,9 @@ export const MedicalRecordPage = () => {
 						</div>
 						<Divider />
 						<div>
-							<div style={{ color: "#6c6b6c" }}>Дата прийому: {new Date(medicalRecord.date).toLocaleString()}</div>
+							<div style={{ color: "#6c6b6c" }}>
+								Дата прийому: {new Date(medicalRecord.date).toLocaleString()}
+							</div>
 						</div>
 					</div>
 				)}

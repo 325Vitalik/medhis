@@ -16,10 +16,17 @@ const getMedicalRecordById = async (medicalRecordId) => {
 	return await medicalRecordsDb.get().byId(medicalRecordId);
 } 
 
+const createMedicalRecord = async (medicalRecord, doctorId) => {
+	const id = uuid.v4();
+	const medicalRecordsDb = await new MedicalRecordsDb().initialize();
+	return await medicalRecordsDb.create(id, {...medicalRecord, doctorId}) 
+}
+
 const medicalRecordsService = {
 	getMedicalRecordsOfPatient,
 	getMedicalRecordsOfPatientCount,
-	getMedicalRecordById
+	getMedicalRecordById,
+	createMedicalRecord
 };
 
 module.exports = medicalRecordsService;

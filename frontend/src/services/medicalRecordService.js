@@ -30,8 +30,23 @@ const getMedicalRecordById = async (recordId) => {
 	return await response.json();
 };
 
+const addMedicalRecord = async (medicalRecord, patientId) => {
+	const data = {
+		...medicalRecord,
+		patientId,
+		date: new Date().toString(),
+		diagnoses: medicalRecord.diagnoses.split(",").map((item) => item.trim()),
+		medicines: medicalRecord.medicines.split(",").map((item) => item.trim()),
+	};
+
+	const response = await postApi("/medicalrecord", data);
+
+	return response.status === 201;
+};
+
 export const medicalRecordService = {
 	getMedicalRecordsByPatient,
 	getTotalMedicalRecordsByPatient,
-	getMedicalRecordById
+	getMedicalRecordById,
+	addMedicalRecord,
 };

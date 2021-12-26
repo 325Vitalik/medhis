@@ -3,15 +3,18 @@ import config from "../../config";
 export const postApi = async (route, data = {}, file) => {
 	const token = localStorage.getItem("userToken");
 
+	const body = getBody(data, file);
+
 	const headers = {
 		...(token && { Authorization: `Bearer ${token}` }),
+		...((body.getHeaders && body.getHeaders()) || { "Content-Type": "application/json" }),
 	};
 
 	return await fetch(`${config.API_URL}${route}`, {
 		method: "POST",
 		mode: "cors",
 		cache: "default",
-		body: getBody(data, file),
+		body,
 		headers,
 	});
 };
@@ -44,7 +47,7 @@ export const getApi = async (route, params = {}) => {
 	return await fetch(url, {
 		method: "GET",
 		mode: "cors",
-		cache: "force-cache",
+		cache: "no-cache",
 		headers,
 	});
 };

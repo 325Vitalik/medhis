@@ -117,6 +117,10 @@ class MedicalRecordsDb {
 
 		return { byPatientId };
 	}
+
+	create(key, value) {
+		return this.medicalRecords.insert(key, value);
+	}
 }
 
 module.exports = {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Grid, Header, Icon, Image, List, Message, Pagination, Segment } from "semantic-ui-react";
+import { Button, Header, Icon, Input, List, Message, Pagination, Segment } from "semantic-ui-react";
 import { medicalRecordService } from "../../services/medicalRecordService";
 import { userService } from "../../services/userService";
+import { AddMedicalRecord } from "./AddMedicalRecord";
 import { MedicalRecordListItem } from "./MedicalRecordListItem";
 
 const NUMBER_OF_ITEMS_ON_PAGE = 10;
@@ -13,6 +13,7 @@ export const MedicalRecordsList = ({ patientId }) => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState(false);
 	const [medicalRecords, setMedicalRecords] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		Promise.resolve()
@@ -37,10 +38,19 @@ export const MedicalRecordsList = ({ patientId }) => {
 	}, [patientId]);
 
 	const pageChangeHandler = (e, { activePage }) => setActivePage(activePage);
+	const addMedicalRecordHandler = () => setShowModal(true);
 
 	return (
 		<Segment loading={isLoading}>
 			<Header size="large">Медична історія</Header>
+			<AddMedicalRecord open={showModal} closeModal={() => setShowModal(false)} patientId={patientId} />
+			<Segment fluid>
+				<Button icon labelPosition="left" content="focus" onClick={addMedicalRecordHandler}>
+					<Icon name="add" />
+					Додати запис
+				</Button>
+				<Input action="Шукати" placeholder="Шукати..." />
+			</Segment>
 			{isLoading && (
 				<Message icon>
 					<Message.Content>
