@@ -1,43 +1,36 @@
-import { postApi } from "./helpers/httpHelper";
+import { getApi, postApi } from "./helpers/httpHelper";
 
-const loginUser = async (email, password) => {
-	const response = await postApi("/auth", { email, password });
+const getPatients = async (take, skip) => {
+	const response = await getApi("/patients", { take, skip });
 
 	if (response.status !== 200) {
-		return false;
+		return [];
 	}
 
-	const { token } = await response.json();
-	localStorage.setItem("userToken", token);
-	localStorage.setItem("userRole", parseJwt(token).role);
-
-	return true;
+	return await response.json();
 };
 
-const parseJwt = (token) => {
-	const base64Url = token.split(".")[1];
-	const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-	const jsonPayload = decodeURIComponent(
-		atob(base64)
-			.split("")
-			.map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-			.join("")
-	);
+const getTotalPatients = async () => {
+	const response = await getApi("/patients/count");
 
-	return JSON.parse(jsonPayload);
+	if (response.status !== 200) {
+		return 0;
+	}
+
+	return (await response.json()).total;
 };
 
-const logOutUser = () => {
-	localStorage.removeItem("userToken");
-	localStorage.removeItem("userRole");
-};
+const addPatient = async (patientData, image) => {
+	const { region, city, street, buildingNumber, flatNumber, zipCode, ...restPatient } = patientData;
+	const patient = { ...restPatient, address: { region, city, street, buildingNumber, flatNumber, zipCode } };
 
-const checkUserLoggedIn = () => {
-	return Boolean(localStorage.getItem("userToken"));
+	const response = await postApi("/patient", patient, image);
+
+	return response.status === 201;
 };
 
 export const userService = {
-	loginUser,
-	logOutUser,
-	checkUserLoggedIn,
+	getPatients,
+	getTotalPatients,
+	addPatient,
 };

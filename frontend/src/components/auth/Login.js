@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Grid, Header, Message, Segment } from "semantic-ui-react";
-import { userService } from "../../services/userService";
+import { authService } from "../../services/authService";
 
 export const Login = () => {
 	const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export const Login = () => {
 	const changeEmailHandler = (e, { value }) => setEmail(value);
 	const changePasswordHandler = (e, { value }) => setPassword(value);
 	const submitLoginForm = async () => {
-		const success = await userService.loginUser(email, password);
+		const success = await authService.loginUser(email, password);
 
 		if (!success) {
 			return setFormError(true);

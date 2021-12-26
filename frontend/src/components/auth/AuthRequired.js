@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { userService } from "../../services/userService";
+import { authService } from "../../services/authService";
 
 export const AuthRequired = ({ children }) => {
-	if (!userService.checkUserLoggedIn()) {
+	if (!authService.checkUserLoggedIn()) {
 		return <Navigate to="/auth" />;
 	}
 

@@ -30,10 +30,34 @@ class UserDb {
 			const query = "SELECT * FROM medhis.med.users WHERE email = $email LIMIT 1";
 			const options = { parameters: { email } };
 
-			return requestUtils.getResponseRows(this.cluster.query(query, options), 'users', true);
+			return requestUtils.getResponseRows(this.cluster.query(query, options), "users", true);
 		};
 
-		return { byEmail };
+		const byRole = (role, take, skip) => {
+			const takeQuery = !take ? "" : ` LIMIT $take`;
+			const skipQuery = !skip ? "" : ` OFFSET $skip`;
+			const query = "SELECT * FROM medhis.med.users WHERE roleName = $role" + takeQuery + skipQuery;
+			const options = { parameters: { role, take, skip } };
+
+			return requestUtils.getResponseRows(this.cluster.query(query, options), "users");
+		};
+
+		return { byEmail, byRole };
+	}
+
+	count() {
+		const byRole = (role) => {
+			const query = "SELECT COUNT(*) AS total FROM medhis.med.users WHERE roleName = $role";
+			const options = { parameters: { role } };
+
+			return requestUtils.getResponseRows(this.cluster.query(query, options), "total", true);
+		};
+
+		return { byRole };
+	}
+
+	create(key, value) {
+		return this.users.insert(key, value);
 	}
 }
 

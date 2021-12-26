@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Header, Menu } from "semantic-ui-react";
-import { userService } from "../../services/userService";
+import { authService } from "../../services/authService";
 
 export const NavigationBar = () => {
 	const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const NavigationBar = () => {
 	const handleItemClick = (e, { name }) => navigate(name);
 
 	const logOut = () => {
-		userService.logOutUser();
+		authService.logOutUser();
 		navigate("/auth");
 	};
 
@@ -22,7 +22,9 @@ export const NavigationBar = () => {
 					<Link to="/">MedHis</Link>
 				</Header>
 			</Menu.Item>
-			<Menu.Item name="user" active={currentRoute === "user"} onClick={handleItemClick} />
+			<Menu.Item name="patients" active={currentRoute === "patients"} onClick={handleItemClick}>
+				Пацієнти
+			</Menu.Item>
 			<Menu.Item name="pics" active={currentRoute === "pics"} onClick={handleItemClick} />
 			<Menu.Item name="companies" active={currentRoute === "companies"} onClick={handleItemClick} />
 			<Menu.Item name="links" active={currentRoute === "links"} onClick={handleItemClick} />

@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Grid, Segment } from "semantic-ui-react";
 import { NavigationBar } from "./navigation/NavigationBar";
+import { PatientList } from "./patients/PatientList";
 
 export const Main = () => {
 	return (
@@ -18,6 +19,7 @@ export const Main = () => {
 							<Route path="new" element={<></>} /> */}
 							<Route index element={<>USER PAGE 2</>} />
 						</Route>
+						<Route path="patients" element={<PatientList />} />
 					</Routes>
 				</Segment>
 			</Grid.Column>

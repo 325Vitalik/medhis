@@ -18,6 +18,7 @@ const initializeDbInstance = async () => {
 		"CREATE PRIMARY INDEX idx_default_primary_medical_records ON medhis.med.medicalRecords USING GSI;"
 	);
 	await cluster.query("CREATE INDEX idx_user_email ON medhis.med.users(email);");
+	await cluster.query("CREATE INDEX adv_roleName ON `default`:`medhis`.`med`.`users`(`roleName`);");
 };
 
 module.exports = {
